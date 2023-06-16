@@ -27,3 +27,4 @@ class Game:
         #when selected a piece tells the row, col of selected -- for selecting/deselection 
         
     def move(self, row, col):
+        #bbb
