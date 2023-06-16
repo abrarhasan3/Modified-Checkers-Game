@@ -21,7 +21,7 @@ class Board:
     def move(self, piece, row, col):
         #which piece, and to where(row, col), and then delete it from current
         #move piece within the list and then update the piece
-        self.board[piece.row][piece.col], self.board[row][col]=self.board[row][col], self.board[piece.row][piece.col] #swaping position in a list -- didn't understand did what--the piece will move from piece.row,col to row,col type something
+        self.board[piece.row][piece.col], self.board[row][col]=self.board[row][col], self.board[piece.row][piece.col] #swaping position in a list -- the new pos wont have a piece so it will go to currently selected's place and the piece will go to blank place--the piece will move from piece.row,col to row,col type something
         piece.move(row, col)
         #for checking if becoming king--last row--pieces that are in last row wont be kkings without making any move--only kings can go backward so if king move back to it's starting position still stays a king
         if row == ROWS or row == 0:
@@ -64,4 +64,101 @@ class Board:
                 if piece!=0:
                     #appended 0 above
                     piece.draw(win)#didnt understand this
-                
+
+    def get_valid_moves(self, piece):
+        #check color - red goes downward, so for each piece check left right diagonally at each row--1left and 1down, if it has a piece or blank, if has is the piece of same color as moving piece--cant move, if blank -- move, if has opposite color check if can jump over diagonally--check next row, if blank--valid--same for right diagonal--if jumped track for removed piece
+        #double jumping--if jumped over 1piece check if we can jump over any other piece diagonally--valid only if can jump over another piece and add moves to the set
+        moves = {} #dictionary for what place can move--as row,col-- (4,5) available space and it will be key and value will be any pieces we jump to that move and (4,5): [(3, 4)]--jumped over 3,4 to get to 4,5
+        left = piece.col - 1
+        right = piece.col + 1
+        row = piece.row
+
+        #for checking move upward/downward/king_for both
+        if piece.color == RED or piece.king:
+            moves.update(self._traverse_left(row-1, max(row-3, -1), -1, piece.color, left))
+            #this will traverse and update--row-1(start) means move up to check for valid, how many rows looking(stop)max(2rows above now row or -1) highest can take row0--dont wanna check for more than 3rows, -1 means move up, left means col-where we subtract upwards
+
+            moves.update(self._traverse_right(row-1, max(row-3, -1), -1, piece.color, right))
+        if piece.color == WHITE or piece.king:
+            moves.update(self._traverse_left(row+1, min(row+3, ROWS), +1, piece.color, left))
+            moves.update(self._traverse_left(row+1, min(row+3, ROWS), +1, piece.color, right))
+        return moves #merges the dictionary and returns
+    def _traverse_left(self, start, stop, step, color, left, skipped=[]):
+        #checks left diagonal
+        #start, stop, step is for FOR loop, step--do i go up/down, skipped--have we skipped any pieces--if we have we can skip to another piece
+        moves = {}
+        last = []
+        for r in range (start, stop, step):
+            if left<0:
+                #outside of board
+                break
+            current = self.board[r][left]#keeps track of left
+            if current == 0:#means found an empty square
+                if skipped and not last:
+                    #if we skipped and found blank -break-if we can't jump over another piece for being a valid move--skipped and didn't find another to skip over 
+                    break
+                elif skipped:
+                    #in double jumping--combines last piece we jumped with the piece we skipped--to know whether we can jump 1/2
+                    moves[(r, left)] = last+skipped
+
+                else: #for didn't skip anything
+                    moves[(r, left)] = last #if empty and last exists means we can jump over it and if no piece of other color--will add move cause last is empty list
+                if last:
+                    #we found something to jump over--but didn't jump for the chance of finding double or tripke jump--skipped over
+                    if step == -1:
+                        row = max(r-3, 0)
+                    else: 
+                        row = min (r+3, ROWS)
+                    #at a new pos and have to calculated where to stop
+                    #calling recursively to check if we can jump more
+                    moves.update(self._traverse_left(r+step, row, step, color, left-1, skipped=last))
+                    moves.update(self._traverse_right(r+step, row, step, color, left+1, skipped=last))
+                    break #after this no more valid moves
+            elif current.color==color:#if not empty and the piece is same color as our piece, can move
+                break
+            else:#means opponents color--assuming that there's a empty sq next we can jump on top of that
+                last = [current]#if we can jump we loop again and check the next diagonal sq 
+
+
+
+            left -=1
+        return moves
+    def _traverse_right(self, start, stop, step, color, right, skipped=[]):
+            moves = {}
+            last = []
+            for r in range (start, stop, step):
+                if right>=COLS:
+                    #outside of board
+                    break
+                current = self.board[r][right]#keeps track of left
+                if current == 0:#means found an empty square
+                    if skipped and not last:
+                        #if we skipped and found blank -break-if we can't jump over another piece for being a valid move--skipped and didn't find another to skip over 
+                        break
+                    elif skipped:
+                        #in double jumping--combines last piece we jumped with the piece we skipped--to know whether we can jump 1/2
+                        moves[(r, lefrightt)] = last+skipped
+
+                    else: #for didn't skip anything
+                        moves[(r, right)] = last #if empty and last exists means we can jump over it and if no piece of other color--will add move cause last is empty list
+                    if last:
+                        #we found something to jump over--but didn't jump for the chance of finding double or tripke jump--skipped over
+                        if step == -1:
+                            row = max(r-3, 0)
+                        else: 
+                            row = min (r+3, ROWS)
+                        #at a new pos and have to calculated where to stop
+                        #calling recursively to check if we can jump more
+                        moves.update(self._traverse_left(r+step, row, step, color, right-1, skipped=last))
+                        moves.update(self._traverse_right(r+step, row, step, color, right+1, skipped=last))
+                        break #after this no more valid moves
+                elif current.color==color:#if not empty and the piece is same color as our piece, can move
+                    break
+                else:#means opponents color--assuming that there's a empty sq next we can jump on top of that
+                    last = [current]#if we can jump we loop again and check the next diagonal sq 
+
+
+
+                right +=1
+            return moves
+

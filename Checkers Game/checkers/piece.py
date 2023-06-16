@@ -13,10 +13,10 @@ class Piece:
         #a piece becomes king when it reaches last row
 
         #direction for each piece, neg or pos, where are we going basically, meaning for white piece(on top) they must move downward, direction pos, for red piece, it goes upward
-        if self.color == RED:
-            self.direction = -1
-        else:
-            self.direction = 1
+        #if self.color == RED: #did it in board.py
+            #self.direction = -1
+        #else:
+            #self.direction = 1
 
         self.x = 0
         self.y = 0
