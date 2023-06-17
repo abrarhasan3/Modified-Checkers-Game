@@ -5,7 +5,7 @@ from .piece import Piece
 class Board:
     def __init__(self):
         #defining attributes of this class
-        self.board = []#internal representation of the board, 2D list(8 rows and 8 cols) will have objects like red and black pieces [[WHITE, 0, WHITE, 0, WHITE],[red, 0, red , 0]] something like this. 8 interrior list [[this one], []] will have 8 differet pieces that tell if they are white, red, king etc
+        self.board = []#internal representation of the board, 2D list(8 rows and 8 cols) will have objects like red and black pieces [[WHITE, 0, WHITE, 0, WHITE],[red, 0, red , 0]] something like this. 8 interrior list [[this one], []] will have 8 differet pieces that tell if they are white, red, king etc--meaning for each row we get if a cell has a piece or not and check the list's pos
         #self.selected_piece = None #--now in game
         self.red_left = self.white_left = 12 #how many pieces we have, initially we have 12 each, when chosen a piece we will minus
         self.red_kings = self.white_kings = 0
@@ -18,13 +18,28 @@ class Board:
                 #row%2(initializtion of loop) means, if we start by row=0, 0x0 of board will be red, then increment by 2, 0x2 will be red like this, for row=1, 1%2=1, 1x1 will be red
                 pygame.draw.rect(win, TEMP, (row*SQUARE_SIZE, col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)) #draws a red rect on window and draw happens from top left coordinate so (x,y)=(0,0) and as we go to right x increases and go bottom y inc. at bottom will be 800. at 0,0 draw a 100 width and 100 long square suppose. x = row*square_size, y = col*sq_size, width = sq_size, height = sq_size, x&y calculates where top left is. changed red to temp
 
+    def evaluate(self):
+        #would tell us given the state of the board what is the score--on the basis of how many kings and pieces we have--score +/- --white = ai--also the score we prioritise becoming king--when whiteking<redking it will be subtracted from score
+        return self.white_left-self.red_left+(self.white_kings*0.5 - self.red_kings*0.5)
+
+    def get_all_pieces(self, color):
+        #here all same color pieces currently on board will be received and all their valid moves will be found together
+        pieces = []
+        for row in self.board:
+            for piece in row:
+                if piece!=0 and piece.color==color:
+                    pieces.append(piece)
+        return pieces
+    
+        #above we are checking the board 2D list, if a position is 0 meaning doesnt have a piece and of the color we requested we append it to list pieces
+
     def move(self, piece, row, col):
         #which piece, and to where(row, col), and then delete it from current
         #move piece within the list and then update the piece
         self.board[piece.row][piece.col], self.board[row][col]=self.board[row][col], self.board[piece.row][piece.col] #swaping position in a list -- the new pos wont have a piece so it will go to currently selected's place and the piece will go to blank place--the piece will move from piece.row,col to row,col type something
         piece.move(row, col)
         #for checking if becoming king--last row--pieces that are in last row wont be kkings without making any move--only kings can go backward so if king move back to it's starting position still stays a king
-        if row == ROWS or row == 0:
+        if row == ROWS-1 or row == 0:
             piece.make_king()
             if piece.color == WHITE:
                 self.white_kings+=1
@@ -64,7 +79,22 @@ class Board:
                 if piece!=0:
                     #appended 0 above
                     piece.draw(win)#didnt understand this
-
+    def remove(self, pieces):
+        for piece in pieces:
+            #we will look through all pieces and remove needed ones
+            self.board[piece.row][piece.col] = 0
+            #print(piece.row, piece.col)
+            if piece != 0:
+                if piece.color == RED:
+                    self.red_left-=1
+                else:
+                    self.white_left-=1
+    def winner(self):
+        if self.red_left<=0:
+            return WHITE
+        elif self.white_left<=0:
+            return RED
+        return None #if no one won
     def get_valid_moves(self, piece):
         #check color - red goes downward, so for each piece check left right diagonally at each row--1left and 1down, if it has a piece or blank, if has is the piece of same color as moving piece--cant move, if blank -- move, if has opposite color check if can jump over diagonally--check next row, if blank--valid--same for right diagonal--if jumped track for removed piece
         #double jumping--if jumped over 1piece check if we can jump over any other piece diagonally--valid only if can jump over another piece and add moves to the set
@@ -73,7 +103,7 @@ class Board:
         right = piece.col + 1
         row = piece.row
 
-        #for checking move upward/downward/king_for both
+        #for checking move upward/downward/king_for both--king piece will satisfy both conditions
         if piece.color == RED or piece.king:
             moves.update(self._traverse_left(row-1, max(row-3, -1), -1, piece.color, left))
             #this will traverse and update--row-1(start) means move up to check for valid, how many rows looking(stop)max(2rows above now row or -1) highest can take row0--dont wanna check for more than 3rows, -1 means move up, left means col-where we subtract upwards
@@ -81,7 +111,7 @@ class Board:
             moves.update(self._traverse_right(row-1, max(row-3, -1), -1, piece.color, right))
         if piece.color == WHITE or piece.king:
             moves.update(self._traverse_left(row+1, min(row+3, ROWS), +1, piece.color, left))
-            moves.update(self._traverse_left(row+1, min(row+3, ROWS), +1, piece.color, right))
+            moves.update(self._traverse_right(row+1, min(row+3, ROWS), +1, piece.color, right))
         return moves #merges the dictionary and returns
     def _traverse_left(self, start, stop, step, color, left, skipped=[]):
         #checks left diagonal
@@ -100,6 +130,7 @@ class Board:
                 elif skipped:
                     #in double jumping--combines last piece we jumped with the piece we skipped--to know whether we can jump 1/2
                     moves[(r, left)] = last+skipped
+                    #print((r, left))
 
                 else: #for didn't skip anything
                     moves[(r, left)] = last #if empty and last exists means we can jump over it and if no piece of other color--will add move cause last is empty list
@@ -113,14 +144,12 @@ class Board:
                     #calling recursively to check if we can jump more
                     moves.update(self._traverse_left(r+step, row, step, color, left-1, skipped=last))
                     moves.update(self._traverse_right(r+step, row, step, color, left+1, skipped=last))
-                    break #after this no more valid moves
+                    
+                break #after this no more valid moves
             elif current.color==color:#if not empty and the piece is same color as our piece, can move
                 break
             else:#means opponents color--assuming that there's a empty sq next we can jump on top of that
                 last = [current]#if we can jump we loop again and check the next diagonal sq 
-
-
-
             left -=1
         return moves
     def _traverse_right(self, start, stop, step, color, right, skipped=[]):
@@ -137,7 +166,8 @@ class Board:
                         break
                     elif skipped:
                         #in double jumping--combines last piece we jumped with the piece we skipped--to know whether we can jump 1/2
-                        moves[(r, lefrightt)] = last+skipped
+                        moves[(r, right)] = last+skipped
+                        #print((r, right))
 
                     else: #for didn't skip anything
                         moves[(r, right)] = last #if empty and last exists means we can jump over it and if no piece of other color--will add move cause last is empty list
@@ -151,14 +181,11 @@ class Board:
                         #calling recursively to check if we can jump more
                         moves.update(self._traverse_left(r+step, row, step, color, right-1, skipped=last))
                         moves.update(self._traverse_right(r+step, row, step, color, right+1, skipped=last))
-                        break #after this no more valid moves
+                    break #after this no more valid moves
                 elif current.color==color:#if not empty and the piece is same color as our piece, can move
                     break
                 else:#means opponents color--assuming that there's a empty sq next we can jump on top of that
                     last = [current]#if we can jump we loop again and check the next diagonal sq 
-
-
-
                 right +=1
             return moves
 

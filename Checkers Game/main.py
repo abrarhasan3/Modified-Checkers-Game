@@ -8,7 +8,8 @@ Created on Fri Jun 16 11:03:37 2023
 import pygame
 
 #__INIT__.PY TELLS THAT, CHECKERS FOLDER IS A PYTHON PACKAGE AND THAT'S WHY WE CAN IMPORT THINGS FROM IT AND IF WE WRITE FROM CONSTANCE IMPORT *, WE DONT HAVE TO WRITE .CONSTANCE HERE
-from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE
+from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED, WHITE
+from minimax.algorithm import minimax
 from checkers.board import Board
 from checkers.game import Game
 
@@ -40,6 +41,15 @@ def main():
     #while loops does the event controlling and drawing
     while run:
         Clock.tick(FPS)
+        if game.turn == WHITE:
+            value, new_board = minimax(game.get_board(), 4, WHITE, game)
+            game.ai_move(new_board)
+
+        if game.winner()!=None:
+            print(game.winner())
+
+            #for quiting game
+            run = False
         #this for loop will check if an events happend in the current time, if have they will be in the list of pygame.event.get
         for event in pygame.event.get():
             #now we check if the event is of a specific type, like quit - we quit the game
@@ -51,6 +61,9 @@ def main():
                 row, col = get_row_col_from_mouse(pos)
                 #piece = board.get_piece(row, col) 
                 #board.move(piece, 4, 3)
+
+                
+                game.select(row, col)
         #for each end loop, draws on window
         #board.draw(WIN)#changed into game.py
         #pygame.display.update()#when update the display, draw is called, on top of each other
