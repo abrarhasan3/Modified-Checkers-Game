@@ -17,7 +17,7 @@ class Board:
         self.create_board()
     def draw_cubes(self, win):
         win.fill(BLACK) #পুরা উইন্ডো কালো করবে
-        pygame.draw.rect(win,(51, 0, 102), (800, 0, 200, 800))
+        pygame.draw.rect(win,(116, 116, 116), (800, 0, 200, 800))
         #pygame.draw.rect(win,BLACK, (800+20, 20, 200-40, 800-40))
         
 

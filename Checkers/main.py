@@ -99,25 +99,32 @@ def splash_screen():
     run = True
     main_font = pygame.font.SysFont("comicsans", 50)
     while run:
-        WIN.fill((102, 0, 51))
-        pygame.draw.rect(WIN,(0, 102, 204), (100, 400, WIDTH, 100))
-        pygame.draw.rect(WIN,(0, 0, 0), (80, 380, WIDTH-10, 90))
-
-        again = main_font.render(f"Play Again?", 1, (0,0,0))
-        rect = pygame.draw.rect(WIN,WHITE, (100+again.get_width()+20, 600, again.get_width(), again.get_height()))
-        WIN.blit(again, (100+again.get_width()+20, 600,))
+        
+        #WIN.fill(RED)
+        screen = pygame.transform.scale(pygame.image.load('c/open.png'), (1000,612))
+        play = pygame.transform.scale(pygame.image.load('c/play_btn.png'), (200,100))
+        WIN.blit(screen,(0,94))
+        WIN.blit(play,(130,350))
         pygame.display.update()
+    
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 a, b = pygame.mouse.get_pos()
-                if rect.x <= a <= rect.x+again.get_width() and rect.y<=b<=rect.y+again.get_height():
+                if 130 <= a <= 130+play.get_width() and 350<=b<=350+play.get_height():
                     main()
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if rect.collidepoint(event.pos):
-                    pygame.quit()
+        
+'''
+        again = main_font.render(f"Play Again?", 1, (0,0,0))
+        rect = pygame.draw.rect(WIN,WHITE, (100+again.get_width()+20, 600, again.get_width(), again.get_height()))
+        WIN.blit(again, (100+again.get_width()+20, 600,))
+        pygame.display.update()
+                
+'''
+       
+                    
 
 splash_screen()
 #main()
