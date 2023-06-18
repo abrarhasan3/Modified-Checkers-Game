@@ -1,11 +1,13 @@
 
 import pygame
+pygame.font.init()
 from .piece import Piece
-from .constant import BLACK, ROWS, RED,WHITE, SQUARE_SIZE, COLS,BLUE
+from .constant import BLACK, ROWS, RED,WHITE, SQUARE_SIZE, COLS,BLUE,GREY
 #পুরা চেকারসস বোর্ড মেইনটেইন হবে এইখান থেকে
 class Board:
     def __init__(self):
         self.board = []
+        self.Total = 12
         #এখানে বোর্ডটা একটা 2d Array এর মত। 
     # [[0,Piece,0,.....,piece,0],
     #  [piece,0,piece,.....,0,piece],
@@ -15,6 +17,38 @@ class Board:
         self.create_board()
     def draw_cubes(self, win):
         win.fill(BLACK) #পুরা উইন্ডো কালো করবে
+        pygame.draw.rect(win,(51, 0, 102), (800, 0, 200, 800))
+        #pygame.draw.rect(win,BLACK, (800+20, 20, 200-40, 800-40))
+        
+
+        PADDING = 15
+        OUTLINE = 2
+        radius = SQUARE_SIZE//2 - PADDING
+
+        #if (self.Total -  self.red_left>0 and self.Total -  self.red_left<=6):
+        pygame.draw.circle(win, GREY, (800+radius+20, radius+10), radius+OUTLINE)
+        pygame.draw.circle(win, BLACK, (800+radius+20, radius+10), radius) 
+        pygame.draw.circle(win, GREY, (800+radius+20, radius+10), radius-10)
+        pygame.draw.circle(win, BLACK, (800+radius+20, radius+10), radius-10-OUTLINE) 
+
+
+        main_font = pygame.font.SysFont("comicsans", 30)
+        livees_label = main_font.render(f"{self.Total -  self.red_left}", 1, WHITE)
+        win.blit(livees_label, (800+(radius+OUTLINE+20)*2, radius-10))
+
+
+        pygame.draw.circle(win, GREY, (800+radius+20, 800-radius-30), radius+OUTLINE)
+        pygame.draw.circle(win, WHITE, (800+radius+20, 800-radius-30), radius) 
+        pygame.draw.circle(win, GREY, (800+radius+20, 800-radius-30), radius-10)
+        pygame.draw.circle(win, WHITE, (800+radius+20, 800-radius-30), radius-10-OUTLINE) 
+
+
+        main_font = pygame.font.SysFont("comicsans", 30)
+        livees_label = main_font.render(f"{self.Total -  self.white_left}", 1, WHITE)
+        win.blit(livees_label, (800+(radius+OUTLINE+20)*2, 800-radius-OUTLINE-50))
+
+
+
         for row in range(ROWS):
             for col in range(row%2, COLS, 2):
                 pygame.draw.rect(win, WHITE, (row* SQUARE_SIZE,col*SQUARE_SIZE, SQUARE_SIZE,SQUARE_SIZE))
@@ -66,9 +100,13 @@ class Board:
                         self.board[row].append(0)
                 else:
                     self.board[row].append(0)
-        self.board[5][4].make_corner()
-        self.board[5][4].make_king()
-        self.board[2][7].make_corner()
+        self.board[0][1].make_corner()
+        
+        self.board[0][7].make_corner()
+        
+        self.board[7][0].make_corner()
+        
+        self.board[7][6].make_corner()
         #self.board[2][7].make_king()
         
         '''
@@ -97,9 +135,9 @@ class Board:
                     self.white_left-=1
     def winner(self):
         if self.red_left <=0:
-            return RED
-        elif self.white_left <=0:
             return WHITE
+        elif self.white_left <=0:
+            return RED
         return None
                     
     
@@ -150,7 +188,7 @@ class Board:
         for r in range (start, stop, step):
             if left<0:
                 break
-            print("R LEFT = ",r,left)
+            #print("R LEFT = ",r,left)
             current = self.board[r][left]
             
             if current==0:
