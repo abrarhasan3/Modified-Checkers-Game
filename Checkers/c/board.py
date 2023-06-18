@@ -17,7 +17,7 @@ class Board:
         win.fill(BLACK) #পুরা উইন্ডো কালো করবে
         for row in range(ROWS):
             for col in range(row%2, COLS, 2):
-                pygame.draw.rect(win, BLUE, (row* SQUARE_SIZE,col*SQUARE_SIZE, SQUARE_SIZE,SQUARE_SIZE))
+                pygame.draw.rect(win, WHITE, (row* SQUARE_SIZE,col*SQUARE_SIZE, SQUARE_SIZE,SQUARE_SIZE))
         #BLUE  BLACK BLUE  BLACK....
         #Black blue  black blue....
     
@@ -66,7 +66,10 @@ class Board:
                         self.board[row].append(0)
                 else:
                     self.board[row].append(0)
-        self.board[5][0].make_corner()
+        self.board[5][4].make_corner()
+        self.board[5][4].make_king()
+        self.board[2][7].make_corner()
+        #self.board[2][7].make_king()
         
         '''
         t = Piece(0,6, RED)
@@ -94,9 +97,9 @@ class Board:
                     self.white_left-=1
     def winner(self):
         if self.red_left <=0:
-            return WHITE
-        elif self.white_left <=0:
             return RED
+        elif self.white_left <=0:
+            return WHITE
         return None
                     
     
@@ -113,12 +116,31 @@ class Board:
         if piece.color == WHITE or piece.king:
             moves.update(self.traverse_front(row+1,min(row+3,ROWS),1,piece.color,left+1))
             #moves.update(self.traverse_right(row+1,min(row+3,ROWS),1,piece.color,right))
-        if piece.corner:
+        
+        if piece.corner and piece.color == RED :
             t1 = self.traverse_left(row-1,max(row-3,-1),-1,piece.color,left)
             t2 = (self.traverse_right(row-1,max(row-3,-1),-1,piece.color,right))
             moves = {**moves, **t1}
             moves = {**moves, **t2}
+        if piece.corner and piece.color == RED and piece.king:
+            t1 = self.traverse_left(row+1,min(row+3,ROWS),1,piece.color,left)
+            t2 = (self.traverse_right(row+1,min(row+3,ROWS),1,piece.color,right))
+            moves = {**moves, **t1}
+            moves = {**moves, **t2}
+        
+        if piece.corner and piece.color == WHITE :
+            t1 = self.traverse_left(row+1,min(row+3,ROWS),1,piece.color,left)
+            t2 = (self.traverse_right(row+1,min(row+3,ROWS),1,piece.color,right))
+            moves = {**moves, **t1}
+            moves = {**moves, **t2}
+        if piece.corner and piece.color == WHITE and piece.king:
+            t1 = self.traverse_left(row-1,max(row-3,-1),-1,piece.color,left)
+            t2 = (self.traverse_right(row-1,max(row-3,-1),-1,piece.color,right))
+            moves = {**moves, **t1}
+            moves = {**moves, **t2}
+        
             
+        
         return moves
     
     
@@ -128,6 +150,7 @@ class Board:
         for r in range (start, stop, step):
             if left<0:
                 break
+            print("R LEFT = ",r,left)
             current = self.board[r][left]
             
             if current==0:

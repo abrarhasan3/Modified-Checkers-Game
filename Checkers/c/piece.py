@@ -29,8 +29,20 @@ class Piece:
         
     def draw(self, win):
         radious = SQUARE_SIZE // 2 - self.PADDING
-        pygame.draw.circle(win, GREY,(self.x,self.y),radious+self.BORDER)
-        pygame.draw.circle(win, self.color,(self.x,self.y),radious)
+        
+        if self.color == RED:
+            pygame.draw.circle(win, WHITE,(self.x,self.y),radious+self.BORDER)
+            pygame.draw.circle(win, RED,(self.x,self.y),radious)
+            pygame.draw.circle(win, WHITE,(self.x,self.y),radious-10)
+            pygame.draw.circle(win, self.color,(self.x,self.y),radious-10-self.BORDER)
+        else:
+            pygame.draw.circle(win, RED,(self.x,self.y),radious+self.BORDER)
+            pygame.draw.circle(win, self.color,(self.x,self.y),radious)
+            pygame.draw.circle(win, RED,(self.x,self.y),radious-10)
+            pygame.draw.circle(win, self.color,(self.x,self.y),radious-10-self.BORDER)
+            
+            
+        
         if self.king:
             win.blit(CROWN,(self.x- CROWN.get_width()//2, self.y - CROWN.get_height()//2))
             #এখানে (x,y) হল স্কয়ারের সেন্টার। কিন্তু এখন যদি আমরা ডিয়েক্ট (x,y) দিয়ে ড্র করি তাহলে হবে না, কারণ ইমেজ শুরু হবে তখন x,y তে
