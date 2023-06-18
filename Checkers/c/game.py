@@ -71,6 +71,9 @@ class Game:
             self.turn= WHITE
         else:
             self.turn=RED
+            main_font = pygame.font.SysFont("comicsans", 30)
+            livees_label = main_font.render(f"Your Turn", 1, WHITE)
+            self.win.blit(livees_label, (800, 400))
             
     def get_board(self):
         return self.board

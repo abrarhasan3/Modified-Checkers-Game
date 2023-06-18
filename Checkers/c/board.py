@@ -24,6 +24,8 @@ class Board:
         PADDING = 15
         OUTLINE = 2
         radius = SQUARE_SIZE//2 - PADDING
+        main_font = pygame.font.SysFont("comicsans", 30)
+
 
         #if (self.Total -  self.red_left>0 and self.Total -  self.red_left<=6):
         pygame.draw.circle(win, GREY, (800+radius+20, radius+10), radius+OUTLINE)
@@ -32,7 +34,7 @@ class Board:
         pygame.draw.circle(win, BLACK, (800+radius+20, radius+10), radius-10-OUTLINE) 
 
 
-        main_font = pygame.font.SysFont("comicsans", 30)
+        
         livees_label = main_font.render(f"{self.Total -  self.red_left}", 1, WHITE)
         win.blit(livees_label, (800+(radius+OUTLINE+20)*2, radius-10))
 
@@ -43,7 +45,7 @@ class Board:
         pygame.draw.circle(win, WHITE, (800+radius+20, 800-radius-30), radius-10-OUTLINE) 
 
 
-        main_font = pygame.font.SysFont("comicsans", 30)
+        
         livees_label = main_font.render(f"{self.Total -  self.white_left}", 1, WHITE)
         win.blit(livees_label, (800+(radius+OUTLINE+20)*2, 800-radius-OUTLINE-50))
 
@@ -56,7 +58,7 @@ class Board:
         #Black blue  black blue....
     
     def evaluate(self):
-        return self.white_left - self.red_left + (self.white_kings*0.5 - self.red_kings*0.5)
+        return self.white_left - self.red_left #+ (self.white_kings*0.5 - self.red_kings*0.5)
     #white king কে প্রায়োরাটাইজ করার জন্য লাস্টে কিং এর কাউন্ডের একটা রেশিও এড করা হয়েছে, এতে AI king বানানো কে প্রয়োরাটাইজ করবে
     
     #ঐ কালারের সব পিস রিটার্ন করে
@@ -176,7 +178,18 @@ class Board:
             t2 = (self.traverse_right(row-1,max(row-3,-1),-1,piece.color,right))
             moves = {**moves, **t1}
             moves = {**moves, **t2}
-        
+            
+            
+        if piece.king and piece.color == RED:
+            t1 = self.traverse_left(row-1,max(row-3,-1),-1,piece.color,left)
+            t2 = (self.traverse_right(row-1,max(row-3,-1),-1,piece.color,right))
+            moves = {**moves, **t1}
+            moves = {**moves, **t2}
+        if piece.king and piece.color == WHITE:
+            t1 = self.traverse_left(row+1,min(row+3,ROWS),1,piece.color,left)
+            t2 = (self.traverse_right(row+1,min(row+3,ROWS),1,piece.color,right))
+            moves = {**moves, **t1}
+            moves = {**moves, **t2}
             
         
         return moves

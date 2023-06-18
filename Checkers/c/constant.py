@@ -19,4 +19,6 @@ SPEAR_BLACK = pygame.transform.scale(pygame.image.load('c/spear.png'), (32,32))
 SPEAR_WHITE = pygame.transform.scale(pygame.image.load('c/spear_white.png'), (32,32))
 WIZ_BLACK = pygame.transform.scale(pygame.image.load('c/wiz_black.png'), (40,40))
 WIZ_WHITE = pygame.transform.scale(pygame.image.load('c/wiz_white.png'), (40,40))
+BG = pygame.transform.scale(pygame.image.load('c/BG1.png'), (1000, 800))
+Play_Again = pygame.transform.scale(pygame.image.load('c/play_again.png'), (200, 100))
 

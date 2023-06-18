@@ -1,8 +1,6 @@
-
-
 import pygame
 pygame.font.init()
-from c.constant import WIDTH,HEIGHT, SQUARE_SIZE, RED, WHITE
+from c.constant import WIDTH,HEIGHT, SQUARE_SIZE, RED, WHITE, BG, Play_Again
 from c.board import Board
 from c.game import Game
 from minimax.algorithm import minimax
@@ -10,6 +8,7 @@ from minimax.algorithm import minimax
 FPS = 60
 WIN = pygame.display.set_mode((WIDTH+200,HEIGHT))
 pygame.display.set_caption('Checkers')
+
 
 def get_col_from_mouse(pos):
     x,y = pos
@@ -21,8 +20,9 @@ def game_over(winner):
     run = True
     main_font = pygame.font.SysFont("comicsans", 50)
     while run:
-        WIN.fill((102, 0, 51))
-        pygame.draw.rect(WIN,(0, 102, 204), (100, 400, WIDTH, 100))
+        WIN.blit(BG, (0, 0))
+        
+        pygame.draw.rect(WIN,(116, 116, 116), (0, 400, WIDTH+200, 100))
         
         if(winner == RED):
             livees_label = main_font.render(f"YOU WIN", 1, WHITE)
@@ -32,13 +32,13 @@ def game_over(winner):
             WIN.blit(livees_label, (livees_label.get_width()+130, 400+20))
 
         again = main_font.render(f"Play Again?", 1, (0,0,0))
-        rect = pygame.draw.rect(WIN,WHITE, (100+again.get_width()+20, 600, again.get_width(), again.get_height()))
-        WIN.blit(again, (100+again.get_width()+20, 600,))
+        rect = Play_Again
+        WIN.blit(Play_Again, (Play_Again.get_width()+200, 600))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 a, b = pygame.mouse.get_pos()
-                if rect.x <= a <= rect.x+again.get_width() and rect.y<=b<=rect.y+again.get_height():
+                if Play_Again.get_width()+200 <= a <= (Play_Again.get_width())*2+200 and 600<=b<=600+Play_Again.get_height():
                     main()
             if event.type == pygame.QUIT:
                 run = False
@@ -56,6 +56,7 @@ def game_over(winner):
 def main():
    run = True
    clock = pygame.time.Clock() 
+   main_font = pygame.font.SysFont("comicsans", 30)
    # কোনো কম্পিউটার ফাস্ট হলে ফাস্ট গেম রান হবে, স্লো হলে স্লো, এটা প্রিভেন্ট করে একটা
    #কন্সট্যান্ট ফ্রেম রেটের জন্য এই লাইন
    
@@ -64,9 +65,12 @@ def main():
        clock.tick(FPS)
        
        if game.turn == WHITE:
+           pygame.display.set_caption('AI')
            value, new_board = minimax(game.get_board(), 3, WHITE, game)
            game.ai_move(new_board)
            #print(value)
+       else:
+           pygame.display.set_caption('Your turn')
        
        if game.winner()!= None:
             print(game.winner())
