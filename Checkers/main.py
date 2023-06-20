@@ -1,4 +1,4 @@
-import pygame
+import pygame,sys
 pygame.font.init()
 from c.constant import WIDTH,HEIGHT, SQUARE_SIZE, RED, WHITE, BG, Play_Again
 from c.board import Board
@@ -30,9 +30,7 @@ def game_over(winner):
         else:
             livees_label = main_font.render(f"YOU LOSE", 1, WHITE)
             WIN.blit(livees_label, (livees_label.get_width()+130, 400+20))
-
-        again = main_font.render(f"Play Again?", 1, (0,0,0))
-        rect = Play_Again
+            
         WIN.blit(Play_Again, (Play_Again.get_width()+200, 600))
         pygame.display.update()
         for event in pygame.event.get():
@@ -40,12 +38,12 @@ def game_over(winner):
                 a, b = pygame.mouse.get_pos()
                 if Play_Again.get_width()+200 <= a <= (Play_Again.get_width())*2+200 and 600<=b<=600+Play_Again.get_height():
                     main()
+                else:
+                    pass
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if rect.collidepoint(event.pos):
-                    pygame.quit()
+            
 
            
            
@@ -115,18 +113,11 @@ def splash_screen():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 a, b = pygame.mouse.get_pos()
                 if 130 <= a <= 130+play.get_width() and 350<=b<=350+play.get_height():
-                    main()
+                    main()                    
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
         
-'''
-        again = main_font.render(f"Play Again?", 1, (0,0,0))
-        rect = pygame.draw.rect(WIN,WHITE, (100+again.get_width()+20, 600, again.get_width(), again.get_height()))
-        WIN.blit(again, (100+again.get_width()+20, 600,))
-        pygame.display.update()
-                
-'''
        
                     
 

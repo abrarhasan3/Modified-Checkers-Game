@@ -58,7 +58,7 @@ class Board:
         #Black blue  black blue....
     
     def evaluate(self):
-        return self.white_left - self.red_left #+ (self.white_kings*0.5 - self.red_kings*0.5)
+        return self.white_left - self.red_left 
     #white king কে প্রায়োরাটাইজ করার জন্য লাস্টে কিং এর কাউন্ডের একটা রেশিও এড করা হয়েছে, এতে AI king বানানো কে প্রয়োরাটাইজ করবে
     
     #ঐ কালারের সব পিস রিটার্ন করে

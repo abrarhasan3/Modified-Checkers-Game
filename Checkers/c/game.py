@@ -79,6 +79,7 @@ class Game:
         return self.board
     
     def ai_move(self, board):
+        pygame.time.delay(100)
         self.board = board
         self.change_turn()
         
