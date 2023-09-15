@@ -1,7 +1,20 @@
 # Modified-Checkers-Game
 This a modified Version of checkers Game. Made for Academic purpose. This is our project for AI laboratory.
 
+## Prequisite 
+<ol>
+  <li><b>Python 3.9.12 </b></li>
+  <li><b>Pygame 2.3.0</b></li>
+</ol>
+
+
 ## How to play
+As this is a two player game, there two color of pieces. 
+<ol>
+  <li><b>White (AI)</b></li>
+  <li><b>Black (Human)</b></li>
+</ol>
+
 There are Four type of pieces in this game. 
 
 
@@ -31,3 +44,4 @@ There are Four type of pieces in this game.
  
   </tr>
   </table>
+### Game Play 
