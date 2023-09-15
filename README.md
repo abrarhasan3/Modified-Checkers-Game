@@ -12,10 +12,10 @@ There are Four type of pieces in this game.
   </tr>
   <tr> 
   <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture2.png" height = "200px" width="200px"/></td>
-  <td><img src = " https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture7.png" height = "200px" width="200px"/></td>
+  <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture7.png" height = "200px" width="200px"/></td>
 
   <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture1.png" height = "200px" width="200px"/></td>
-  <td><img src = " https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture5.png" height = "200px" width="200px"/></td>
+  <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture5.png" height = "200px" width="200px"/></td>
  
   </tr>
   <tr>
@@ -24,10 +24,10 @@ There are Four type of pieces in this game.
   </tr>
   <tr> 
   <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture3.png" height = "200px" width="200px"/></td>
-  <td><img src = " https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture6.png" height = "200px" width="200px"/></td>
+  <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture6.png" height = "200px" width="200px"/></td>
 
   <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture4.png" height = "200px" width="200px"/></td>
-  <td><img src = " https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture8.png" height = "200px" width="200px"/></td>
+  <td><img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture8.png" height = "200px" width="200px"/></td>
  
   </tr>
   </table>
