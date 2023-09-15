@@ -44,4 +44,7 @@ There are Four type of pieces in this game.
  
   </tr>
   </table>
-### Game Play 
+  
+  ### Game Play 
+The board has 8 piece in each, where there is 2 pieces in 
+<img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture9.png" align="center" height="600px" width="600px"/>
