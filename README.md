@@ -11,6 +11,7 @@ This is a modified version of the classic checkers game created for academic pur
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+- [Authors](#authors)
 
 ## Features
 
