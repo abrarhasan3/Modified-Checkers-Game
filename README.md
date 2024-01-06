@@ -14,7 +14,6 @@ This is a modified version of the classic checkers game created for academic pur
 - [Authors](#authors)
 
 ## Features
-
 - **Modified Gameplay:** Horizontal piece movements instead of diagonal.
 - **Special Power Pieces:**
   - **Archers:** Unique movement capabilities.
@@ -35,6 +34,11 @@ The AI opponent in this game employs the Min-Max algorithm with a depth level of
 </ol>
 
 ## Installation
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/railway-station-scene.git
+2. Run **Main.py** and play the game.   
 
 ## How to play
 As this is a two player game, there two color of pieces. 
