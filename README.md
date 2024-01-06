@@ -9,6 +9,8 @@ This is a modified version of the classic checkers game created for academic pur
 - [Installation](#installation)
 - [How to play](#how-to-play)
   - [Board Setup ](#board-setup)
+  - [Valid Moves](#valid-moves)
+- [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
 - [Authors](#authors)
@@ -37,8 +39,8 @@ The AI opponent in this game employs the Min-Max algorithm with a depth level of
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/railway-station-scene.git
-2. Run **Main.py** and play the game.   
+   git clone https://github.com/abrarhasan3/Modified-Checkers-Game.git
+2. Run **Checkers>Main.py** and play the game.   
 
 ## How to play
 As this is a two player game, there two color of pieces. 
@@ -80,6 +82,14 @@ There are Four type of pieces in this game. <br>
 ### Board Setup 
 The board has 8 piece in each team. Among them 2 are archers. 
 <img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture9.png" align="center" height="600px" width="600px"/>
+
+### Valid Moves
+|||
+|---|:---:|
+|**1. Soldier piece can move front horizontally. It can not move back.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/soilder_move.png" height = "100px" width ="100px">|
+|**2. Archer piece can move front horizontally or diagonally. It can not move back**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Archer%20Piece.png" height = "100px" width ="100px">|
+
+## Screenshots
 
 ## Contributing
 
