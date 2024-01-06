@@ -4,11 +4,11 @@ This is a modified version of the classic checkers game created for academic pur
 ## Table of Contents
 
 - [Features](#features)
-- [Game Rules](#game-rules)
 - [AI Strategy](#ai-strategy)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Usage](#usage)
+- [How to play](#how-to-play)
+  - [Board Setup ](#board-setup)
 - [Contributing](#contributing)
 - [License](#license)
 - [Authors](#authors)
@@ -43,7 +43,7 @@ As this is a two player game, there two color of pieces.
   <li><b>Black (Human)</b></li>
 </ol>
 
-There are Four type of pieces in this game. 
+There are Four type of pieces in this game. <br>
 
 
 <table>
@@ -73,8 +73,8 @@ There are Four type of pieces in this game.
   </tr>
   </table>
   
-  ### Game Play 
-The board has 8 piece in each, where there is 2 pieces in 
+### Board Setup 
+The board has 8 piece in each team. Among them 2 are archers. 
 <img src = "https://github.com/abrarhasan3/Modified-Checkers-Game/blob/abrar/img/Picture9.png" align="center" height="600px" width="600px"/>
 
 ## Contributing
