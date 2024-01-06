@@ -1,5 +1,5 @@
 # Modified-Checkers-Game
-This is a modified version of the classic checkers game created for academic purposes as a project for the AI Laboratory. The game introduces unique features, including horizontal piece movements , special power pieces such as archers, king, and hero. The AI is implemented using the Min-Max algorithm with a depth level of 3 for strategic gameplay.
+This is a modified version of the classic checkers game created for academic purposes as a project for the AI Laboratory. The game introduces unique features, including vertical piece movements , special power pieces such as archers, king, and hero. The AI is implemented using the Min-Max algorithm with a depth level of 3 for strategic gameplay.
 
 ## Table of Contents
 
@@ -10,13 +10,15 @@ This is a modified version of the classic checkers game created for academic pur
 - [How to play](#how-to-play)
   - [Board Setup ](#board-setup)
   - [Valid Moves](#valid-moves)
+  - [Special Piece Conversion](#special-piece-conversion)
+  - [Strategy](#strategy)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
 - [Authors](#authors)
 
 ## Features
-- **Modified Gameplay:** Horizontal piece movements instead of diagonal.
+- **Modified Gameplay:** vertical piece movements instead of diagonal.
 - **Special Power Pieces:**
   - **Archers:** Unique movement capabilities.
   - **King:** Special privileges and strategic advantages.
@@ -86,9 +88,24 @@ The board has 8 piece in each team. Among them 2 are archers.
 ### Valid Moves
 |||
 |---|:---:|
-|**1. Soldier piece can move front horizontally. It can not move back.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/soilder_move.png" height = "100px" width ="100px">|
-|**2. Archer piece can move front horizontally or diagonally. It can not move back**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Archer%20Piece.png" height = "100px" width ="100px">|
+|**1. Soldier piece can move front vertically. It can not move back.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/soilder_move.png" height = "100px" width ="100px">|
+|**2. Archer piece can move front vertically or diagonally. It can not move back**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Archer%20Piece.png" height = "100px" width ="100px">|
+|**3. King piece can move front vertically or diagonally and it can come back one cell.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/King_move.png" height = "100px" width ="100px">|
+|**4. Hero piece can move front and bach in both vertically or diagonally.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Hero_move.png" height = "100px" width ="100px">
 
+### Special Piece Conversion
+|||
+|---|:---:|
+|**1. If the soldier piece can reach the other end of the board it becomes a king.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/king_convert.png" height = "150px" width ="250px">|
+|**2. When the Archer piece reaches the other end of the board it becomes a hero.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/hero_convert.png" height = "150px" width ="250px">|
+### Strategy
+|||
+|---|:---:|
+|**1.Solder piece can vertically jump over the opponent piece and capture them.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Soldier%20Capture.gif" height = "200px" width ="250px">|
+|**2. Archer piece can capture diagonally or vertically in front.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Archer%20Capture.gif" height = "150px" width ="250px">|
+|**3. King piece can capture diagonally or vertically in front or one box behing.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/King%20Piece.gif" height = "200px" width ="250px">|
+|**4. Hero piece can capture diagonally or vertically in front or back direction.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Hero%20Piece%20Capture.gif" height = "150px" width ="250px">|
+|**5. Two opponent pieces can be captured at one move if double hop is possible.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Double%20Hop.gif" height = "150px" width ="250px">|
 ## Screenshots
 
 ## Contributing
