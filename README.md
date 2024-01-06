@@ -101,9 +101,9 @@ The board has 8 piece in each team. Among them 2 are archers.
 ### Strategy
 |||
 |---|:---:|
-|**1.Solder piece can vertically jump over the opponent piece and capture them.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Soldier%20Capture.gif" height = "200px" width ="250px">|
-|**2. Archer piece can capture diagonally or vertically in front.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Archer%20Capture.gif" height = "150px" width ="250px">|
-|**3. King piece can capture diagonally or vertically in front or one box behing.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/King%20Piece.gif" height = "200px" width ="250px">|
+|**1.Solder piece can vertically jump over the opponent piece and capture them.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Soldier%20Capture.gif" height = "250px" width ="250px">|
+|**2. Archer piece can capture diagonally or vertically in front.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Archer%20Capture.gif" height = "250px" width ="250px">|
+|**3. King piece can capture diagonally or vertically in front or one box behing.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/King%20Piece.gif" height = "250px" width ="250px">|
 |**4. Hero piece can capture diagonally or vertically in front or back direction.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Hero%20Piece%20Capture.gif" height = "150px" width ="250px">|
 |**5. Two opponent pieces can be captured at one move if double hop is possible.**|<img src="https://github.com/abrarhasan3/Modified-Checkers-Game/blob/main/img/Double%20Hop.gif" height = "150px" width ="250px">|
 ## Screenshots
